@@ -7,37 +7,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0b0c0e;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #0b0c0e; }
         .font-oswald { font-family: 'Oswald', sans-serif; }
         .accent-blue { color: #61bced; }
         .bg-accent-blue { background-color: #61bced; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        input:-webkit-autofill,
-        input:-webkit-autofill:hover, 
-        input:-webkit-autofill:focus, 
-        input:-webkit-autofill:active{
+        input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
             -webkit-box-shadow: 0 0 0 30px #0b0c0e inset !important;
             -webkit-text-fill-color: white !important;
             transition: background-color 5000s ease-in-out 0s;
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            display: flex;
-            width: max-content;
-            animation: marquee 15s linear infinite;
-        }
-        .animate-marquee:hover {
-            animation-play-state: paused;
-        }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-marquee { display: flex; width: max-content; animation: marquee 15s linear infinite; }
+        .animate-marquee:hover { animation-play-state: paused; }
+
+        /* Filter button active state */
+        .filter-active { background-color: #61bced; color: #000; border-color: #61bced; }
     </style>
 </head>
 <body class="text-white min-h-screen relative">
@@ -61,9 +49,7 @@
             </div>
             
             <button onclick="openCartModal()" class="relative text-gray-300 hover:text-white transition">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                </svg>
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                 <span id="cartBadge" class="absolute -top-1.5 -right-2 bg-accent-blue text-black text-[0.65rem] font-bold px-1.5 py-0.5 rounded-full">0</span>
             </button>
         </div>
@@ -85,54 +71,176 @@
     </div>
 
     <main class="max-w-4xl mx-auto p-6 mt-6">
-        <h2 class="text-sm tracking-[0.2em] mb-8 text-gray-500 font-oswald uppercase">RESEARCH PRODUCTS</h2>
-
-        <div class="flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8">
-            <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
-                <div class="w-24 h-24 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
-                <div>
-                    <h3 class="text-xl font-oswald tracking-wide mb-1">Retatrutide 20mg</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">
-                        Retatrutide is a triple agonist that activates the GLP-1, GIP, and glucagon receptors. It enhances insulin secretion, increases energy expenditure, and reduces appetite, resulting in significant improvements in weight loss and metabolic regulation.
-                    </p>
-                    <div class="flex items-center space-x-3">
-                        <p class="font-bold text-lg accent-blue">£150</p>
-                    </div>
-                </div>
-            </div>
-            <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
-                <div class="flex items-center space-x-4 w-full justify-end">
-                    <div class="flex items-center border border-[#1e2936] bg-[#151c24] rounded">
-                        <button onclick="updateQty(this, -1)" class="px-3 py-2 hover:text-white text-gray-400 transition">−</button>
-                        <span class="px-4 text-sm font-bold qty-value">1</span>
-                        <button onclick="updateQty(this, 1)" class="px-3 py-2 hover:text-white text-gray-400 transition">+</button>
-                    </div>
-                    <button onclick="addToBasket('Retatrutide 20mg', 150, this)" class="bg-accent-blue text-black font-oswald px-6 py-2.5 text-sm tracking-widest rounded hover:bg-[#7ac7f0] transition w-full md:w-auto">ADD TO BASKET</button>
-                </div>
+        
+        <div class="flex items-center justify-between mb-8 flex-wrap gap-4 border-b border-[#1a1c20] pb-6">
+            <h2 class="text-sm tracking-[0.2em] text-gray-500 font-oswald uppercase">RESEARCH CATALOG</h2>
+            
+            <div class="flex space-x-2 overflow-x-auto no-scrollbar pb-2 md:pb-0 w-full md:w-auto">
+                <button onclick="filterProducts('all', this)" class="filter-btn filter-active border border-[#1e2936] px-4 py-1.5 rounded-full text-[0.65rem] font-bold tracking-widest uppercase transition whitespace-nowrap">All Products</button>
+                <button onclick="filterProducts('fat-loss', this)" class="filter-btn text-gray-400 hover:text-white border border-[#1e2936] bg-[#111418] hover:bg-[#1a1c20] px-4 py-1.5 rounded-full text-[0.65rem] font-bold tracking-widest uppercase transition whitespace-nowrap">Fat Loss</button>
+                <button onclick="filterProducts('healing', this)" class="filter-btn text-gray-400 hover:text-white border border-[#1e2936] bg-[#111418] hover:bg-[#1a1c20] px-4 py-1.5 rounded-full text-[0.65rem] font-bold tracking-widest uppercase transition whitespace-nowrap">Healing / Recovery</button>
+                <button onclick="filterProducts('muscle', this)" class="filter-btn text-gray-400 hover:text-white border border-[#1e2936] bg-[#111418] hover:bg-[#1a1c20] px-4 py-1.5 rounded-full text-[0.65rem] font-bold tracking-widest uppercase transition whitespace-nowrap">Muscle Building</button>
+                <button onclick="filterProducts('tanning', this)" class="filter-btn text-gray-400 hover:text-white border border-[#1e2936] bg-[#111418] hover:bg-[#1a1c20] px-4 py-1.5 rounded-full text-[0.65rem] font-bold tracking-widest uppercase transition whitespace-nowrap">Tanning</button>
             </div>
         </div>
 
-        <div class="flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8">
-            <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
-                <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
-                <div>
-                    <h3 class="text-xl font-oswald tracking-wide mb-1">GHK-Cu 70mg (2 x 35mg)</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">
-                        GHK-Cu is a copper-binding tripeptide naturally found in human plasma. Researched extensively for skin regeneration, wound healing, collagen synthesis, and anti-ageing applications. This potent Quanta Pharma peptide demonstrates remarkable effects on tissue remodelling and cellular regeneration for research use.
-                    </p>
-                    <p class="font-bold text-lg accent-blue">£95</p>
-                </div>
-            </div>
-            <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
-                <div class="flex items-center space-x-4 w-full justify-end">
-                    <div class="flex items-center border border-[#1e2936] bg-[#151c24] rounded">
-                        <button onclick="updateQty(this, -1)" class="px-3 py-2 hover:text-white text-gray-400 transition">−</button>
-                        <span class="px-4 text-sm font-bold qty-value">1</span>
-                        <button onclick="updateQty(this, 1)" class="px-3 py-2 hover:text-white text-gray-400 transition">+</button>
+        <div id="productGrid">
+            <div class="product-card flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8" data-category="fat-loss">
+                <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                    <div class="w-24 h-24 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
+                    <div>
+                        <h3 class="text-xl font-oswald tracking-wide mb-1">Retatrutide 20mg</h3>
+                        <span class="text-[0.6rem] font-bold tracking-widest uppercase text-accent-blue mb-2 block">Fat Loss</span>
+                        <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">Triple agonist activating GLP-1, GIP, and glucagon receptors. Enhances insulin secretion and increases energy expenditure for metabolic regulation.</p>
+                        <p class="font-bold text-lg accent-blue">£150</p>
                     </div>
-                    <button onclick="addToBasket('GHK-Cu 70mg (2 x 35mg)', 95, this)" class="bg-accent-blue text-black font-oswald px-6 py-2.5 text-sm tracking-widest rounded hover:bg-[#7ac7f0] transition w-full md:w-auto">ADD TO BASKET</button>
+                </div>
+                <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
+                    <div class="flex items-center space-x-4 w-full justify-end">
+                        <div class="flex items-center border border-[#1e2936] bg-[#151c24] rounded">
+                            <button onclick="updateQty(this, -1)" class="px-3 py-2 hover:text-white text-gray-400 transition">−</button>
+                            <span class="px-4 text-sm font-bold qty-value">1</span>
+                            <button onclick="updateQty(this, 1)" class="px-3 py-2 hover:text-white text-gray-400 transition">+</button>
+                        </div>
+                        <button onclick="addToBasket('Retatrutide 20mg', 150, this)" class="bg-accent-blue text-black font-oswald px-6 py-2.5 text-sm tracking-widest rounded hover:bg-[#7ac7f0] transition w-full md:w-auto">ADD TO BASKET</button>
+                    </div>
                 </div>
             </div>
+
+            <div class="product-card flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8" data-category="healing">
+                <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                    <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
+                    <div>
+                        <h3 class="text-xl font-oswald tracking-wide mb-1">GHK-Cu 70mg (2 x 35mg)</h3>
+                        <span class="text-[0.6rem] font-bold tracking-widest uppercase text-accent-blue mb-2 block">Healing / Recovery</span>
+                        <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">Copper-binding tripeptide researched extensively for skin regeneration, wound healing, collagen synthesis, and tissue remodelling.</p>
+                        <p class="font-bold text-lg accent-blue">£95</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
+                    <div class="flex items-center space-x-4 w-full justify-end">
+                        <div class="flex items-center border border-[#1e2936] bg-[#151c24] rounded">
+                            <button onclick="updateQty(this, -1)" class="px-3 py-2 hover:text-white text-gray-400 transition">−</button>
+                            <span class="px-4 text-sm font-bold qty-value">1</span>
+                            <button onclick="updateQty(this, 1)" class="px-3 py-2 hover:text-white text-gray-400 transition">+</button>
+                        </div>
+                        <button onclick="addToBasket('GHK-Cu 70mg', 95, this)" class="bg-accent-blue text-black font-oswald px-6 py-2.5 text-sm tracking-widest rounded hover:bg-[#7ac7f0] transition w-full md:w-auto">ADD TO BASKET</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8" data-category="tanning">
+                <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                    <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
+                    <div>
+                        <h3 class="text-xl font-oswald tracking-wide mb-1">Melanotan-2 (MT-2)</h3>
+                        <span class="text-[0.6rem] font-bold tracking-widest uppercase text-accent-blue mb-2 block">Tanning</span>
+                        <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">Synthetic analogue of the peptide hormone α-melanocyte-stimulating hormone (α-MSH) used in melanogenesis research.</p>
+                        <p class="font-bold text-lg accent-blue">£40</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
+                    <div class="flex items-center space-x-4 w-full justify-end">
+                        <div class="flex items-center border border-[#1e2936] bg-[#151c24] rounded">
+                            <button onclick="updateQty(this, -1)" class="px-3 py-2 hover:text-white text-gray-400 transition">−</button>
+                            <span class="px-4 text-sm font-bold qty-value">1</span>
+                            <button onclick="updateQty(this, 1)" class="px-3 py-2 hover:text-white text-gray-400 transition">+</button>
+                        </div>
+                        <button onclick="addToBasket('MT-2', 40, this)" class="bg-accent-blue text-black font-oswald px-6 py-2.5 text-sm tracking-widest rounded hover:bg-[#7ac7f0] transition w-full md:w-auto">ADD TO BASKET</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8 opacity-70" data-category="healing">
+                <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                    <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
+                    <div>
+                        <h3 class="text-xl font-oswald tracking-wide mb-1">BPC-157</h3>
+                        <span class="text-[0.6rem] font-bold tracking-widest uppercase text-accent-blue mb-2 block">Healing / Recovery</span>
+                        <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">Body Protection Compound. Extensively researched for its potential to accelerate healing of tendons, muscles, and the nervous system.</p>
+                        <p class="font-bold text-lg text-gray-500 line-through">£TBA</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
+                    <button disabled class="bg-[#1a1c20] text-gray-500 font-oswald px-6 py-2.5 text-sm tracking-widest rounded w-full md:w-auto cursor-not-allowed border border-[#2a3746]">OUT OF STOCK</button>
+                </div>
+            </div>
+
+            <div class="product-card flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8 opacity-70" data-category="healing">
+                <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                    <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
+                    <div>
+                        <h3 class="text-xl font-oswald tracking-wide mb-1">TB-500</h3>
+                        <span class="text-[0.6rem] font-bold tracking-widest uppercase text-accent-blue mb-2 block">Healing / Recovery</span>
+                        <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">Synthetic version of the naturally occurring peptide Thymosin Beta-4. Researched for tissue repair and anti-inflammatory properties.</p>
+                        <p class="font-bold text-lg text-gray-500 line-through">£TBA</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
+                    <button disabled class="bg-[#1a1c20] text-gray-500 font-oswald px-6 py-2.5 text-sm tracking-widest rounded w-full md:w-auto cursor-not-allowed border border-[#2a3746]">OUT OF STOCK</button>
+                </div>
+            </div>
+
+            <div class="product-card flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8 opacity-70" data-category="muscle">
+                <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                    <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
+                    <div>
+                        <h3 class="text-xl font-oswald tracking-wide mb-1">Ipamorelin</h3>
+                        <span class="text-[0.6rem] font-bold tracking-widest uppercase text-accent-blue mb-2 block">Muscle Building</span>
+                        <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">Highly selective growth hormone secretagogue. Studied for its ability to stimulate GH release without significantly elevating cortisol.</p>
+                        <p class="font-bold text-lg text-gray-500 line-through">£TBA</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
+                    <button disabled class="bg-[#1a1c20] text-gray-500 font-oswald px-6 py-2.5 text-sm tracking-widest rounded w-full md:w-auto cursor-not-allowed border border-[#2a3746]">OUT OF STOCK</button>
+                </div>
+            </div>
+
+            <div class="product-card flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8 opacity-70" data-category="muscle">
+                <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                    <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
+                    <div>
+                        <h3 class="text-xl font-oswald tracking-wide mb-1">CJC-1295</h3>
+                        <span class="text-[0.6rem] font-bold tracking-widest uppercase text-accent-blue mb-2 block">Muscle Building</span>
+                        <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">Tetrasubstituted peptide analogue of GHRH. Researched for its ability to increase plasma GH and IGF-1 levels steadily.</p>
+                        <p class="font-bold text-lg text-gray-500 line-through">£TBA</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
+                    <button disabled class="bg-[#1a1c20] text-gray-500 font-oswald px-6 py-2.5 text-sm tracking-widest rounded w-full md:w-auto cursor-not-allowed border border-[#2a3746]">OUT OF STOCK</button>
+                </div>
+            </div>
+
+            <div class="product-card flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8 opacity-70" data-category="fat-loss">
+                <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                    <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
+                    <div>
+                        <h3 class="text-xl font-oswald tracking-wide mb-1">Tesamorelin</h3>
+                        <span class="text-[0.6rem] font-bold tracking-widest uppercase text-accent-blue mb-2 block">Fat Loss</span>
+                        <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">Synthetic analogue of GHRH. Highly documented in clinical research for reducing visceral adipose tissue (visceral fat).</p>
+                        <p class="font-bold text-lg text-gray-500 line-through">£TBA</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
+                    <button disabled class="bg-[#1a1c20] text-gray-500 font-oswald px-6 py-2.5 text-sm tracking-widest rounded w-full md:w-auto cursor-not-allowed border border-[#2a3746]">OUT OF STOCK</button>
+                </div>
+            </div>
+
+            <div class="product-card flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8 opacity-70" data-category="fat-loss">
+                <div class="flex items-start space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                    <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs shrink-0 mt-1">IMG</div>
+                    <div>
+                        <h3 class="text-xl font-oswald tracking-wide mb-1">MOTS-c</h3>
+                        <span class="text-[0.6rem] font-bold tracking-widest uppercase text-accent-blue mb-2 block">Fat Loss / Energy</span>
+                        <p class="text-gray-400 text-xs leading-relaxed max-w-md mb-3">Mitochondrial-derived peptide known to promote metabolic homeostasis. Researched for mimicking the effects of exercise.</p>
+                        <p class="font-bold text-lg text-gray-500 line-through">£TBA</p>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end space-y-3 w-full md:w-auto">
+                    <button disabled class="bg-[#1a1c20] text-gray-500 font-oswald px-6 py-2.5 text-sm tracking-widest rounded w-full md:w-auto cursor-not-allowed border border-[#2a3746]">OUT OF STOCK</button>
+                </div>
+            </div>
+
         </div>
 
         <div class="flex flex-col justify-center items-center mt-12 mb-20 space-y-4">
@@ -145,26 +253,18 @@
     <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm hidden z-50 flex justify-center items-start pt-10 md:pt-16 px-4 overflow-y-auto">
         <div class="bg-[#111418] border border-[#1e2936] w-full max-w-2xl rounded-lg shadow-2xl mb-10 overflow-hidden relative">
             <button onclick="closeCartModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white font-bold text-xl transition">&times;</button>
-            
             <div class="p-6 md:p-8">
                 <div class="flex items-center gap-3 mb-8">
-                    <svg class="w-6 h-6 text-[#61bced]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
+                    <svg class="w-6 h-6 text-[#61bced]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     <h2 class="font-oswald text-2xl tracking-widest uppercase text-white">BASKET</h2>
                 </div>
-                
                 <div id="cartItemsContainer" class="space-y-2 mb-8 min-h-[100px]"></div>
-
                 <div class="border-t border-[#1e2936] pt-6 mt-6">
                     <div class="flex justify-between items-end mb-8">
                         <span class="font-oswald text-xl tracking-widest text-gray-400 uppercase">TOTAL</span>
                         <span id="cartTotalUI" class="font-bold text-3xl text-white">£0.00</span>
                     </div>
-                    
-                    <button id="btnProceedCheckout" onclick="proceedToCheckout()" class="w-full bg-[#151c24] border border-[#1e2936] text-white py-4 rounded font-oswald text-lg tracking-widest hover:bg-[#1e2936] hover:border-[#61bced] transition uppercase">
-                        CHECKOUT
-                    </button>
+                    <button id="btnProceedCheckout" onclick="proceedToCheckout()" class="w-full bg-[#151c24] border border-[#1e2936] text-white py-4 rounded font-oswald text-lg tracking-widest hover:bg-[#1e2936] hover:border-[#61bced] transition uppercase">CHECKOUT</button>
                 </div>
             </div>
         </div>
@@ -173,120 +273,76 @@
     <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm hidden z-50 flex justify-center items-start pt-10 md:pt-16 px-4 overflow-y-auto">
         <div class="bg-[#111418] border border-[#1e2936] w-full max-w-md rounded-lg shadow-2xl mb-10 overflow-hidden relative">
             <button onclick="closeCheckout()" class="absolute top-4 right-4 text-gray-500 hover:text-white font-bold text-xl transition">&times;</button>
-            
             <div id="checkoutFormStep" class="p-6 md:p-8">
                 <h2 class="font-oswald text-2xl tracking-wide mb-2 uppercase">Secure Checkout</h2>
-                <p class="text-sm text-gray-400 mb-6">Fill in your details to place the order.</p>
-                
                 <div class="space-y-3 border-b border-[#1e2936] pb-4 mb-6 bg-[#0b0c0e] p-4 rounded-md">
-                    <div class="flex justify-between text-gray-300 text-sm">
-                        <span id="checkoutItemName" class="truncate max-w-[200px]">Cart Items</span>
-                        <span id="checkoutItemPrice" class="font-semibold text-white">£0.00</span>
-                    </div>
-                    <div class="flex justify-between text-gray-500 text-sm">
-                        <span>Shipping</span>
-                        <span>£3.50</span>
-                    </div>
-                    <div class="flex justify-between text-white text-lg pt-2 border-t border-[#1e2936] mt-2">
-                        <span class="font-oswald tracking-wide">TOTAL</span>
-                        <span id="checkoutTotal" class="font-bold accent-blue">£0.00</span>
-                    </div>
+                    <div class="flex justify-between text-gray-300 text-sm"><span id="checkoutItemName" class="truncate max-w-[200px]">Cart Items</span><span id="checkoutItemPrice" class="font-semibold text-white">£0.00</span></div>
+                    <div class="flex justify-between text-gray-500 text-sm"><span>Shipping</span><span>£3.50</span></div>
+                    <div class="flex justify-between text-white text-lg pt-2 border-t border-[#1e2936] mt-2"><span class="font-oswald tracking-wide">TOTAL</span><span id="checkoutTotal" class="font-bold accent-blue">£0.00</span></div>
                 </div>
-
                 <form onsubmit="handleOrderSubmission(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-[0.65rem] font-bold tracking-widest text-gray-500 mb-1.5 uppercase">Full Name</label>
-                        <input type="text" required class="w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced] transition">
-                    </div>
-                    <div>
-                        <label class="block text-[0.65rem] font-bold tracking-widest text-gray-500 mb-1.5 uppercase">First Line of Address</label>
-                        <input type="text" required class="w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced] transition">
-                    </div>
+                    <input type="text" placeholder="FULL NAME" required class="text-xs tracking-widest uppercase w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced]">
+                    <input type="text" placeholder="ADDRESS" required class="text-xs tracking-widest uppercase w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced]">
                     <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-[0.65rem] font-bold tracking-widest text-gray-500 mb-1.5 uppercase">City</label>
-                            <input type="text" required class="w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced] transition">
-                        </div>
-                        <div>
-                            <label class="block text-[0.65rem] font-bold tracking-widest text-gray-500 mb-1.5 uppercase">Postcode</label>
-                            <input type="text" required class="w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced] transition">
-                        </div>
+                        <input type="text" placeholder="CITY" required class="text-xs tracking-widest uppercase w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced]">
+                        <input type="text" placeholder="POSTCODE" required class="text-xs tracking-widest uppercase w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced]">
                     </div>
-                    <div>
-                        <label class="block text-[0.65rem] font-bold tracking-widest text-gray-500 mb-1.5 uppercase">Phone Number</label>
-                        <input type="tel" required class="w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced] transition">
-                    </div>
-                    
-                    <button type="submit" class="w-full bg-accent-blue text-black py-4 rounded font-oswald text-lg tracking-widest hover:bg-[#7ac7f0] mt-6 transition flex justify-center items-center gap-2">
-                        PLACE ORDER
-                        <svg class="w-4 h-4 stroke-[2.5px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
+                    <input type="tel" placeholder="PHONE" required class="text-xs tracking-widest uppercase w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced]">
+                    <button type="submit" class="w-full bg-accent-blue text-black py-4 rounded font-oswald text-lg tracking-widest hover:bg-[#7ac7f0] mt-4 transition">PLACE ORDER</button>
                 </form>
             </div>
-
             <div id="bankDetailsStep" class="hidden p-6 md:p-8 text-center">
-                <div class="w-16 h-16 bg-[#151c24] border border-[#1e2936] rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-[#61bced]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </div>
                 <h3 class="text-3xl font-oswald uppercase tracking-wide mb-2">Order Received</h3>
-                <p class="text-sm text-gray-400 mb-8">Please complete your payment via bank transfer to process your order.</p>
-                
+                <p class="text-sm text-gray-400 mb-8">Please complete your payment via bank transfer.</p>
                 <div class="bg-[#0b0c0e] border border-[#1e2936] p-6 rounded text-left space-y-4 mb-8">
-                    <div>
-                        <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Bank Name</p>
-                        <p class="font-medium text-lg text-white">Monzo Bank</p>
-                    </div>
-                    <div>
-                        <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Account Name</p>
-                        <p class="font-medium text-lg text-white">Axiom Labs Ltd</p>
-                    </div>
+                    <div><p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Bank Name</p><p class="font-medium text-lg text-white">Monzo Bank</p></div>
+                    <div><p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Account Name</p><p class="font-medium text-lg text-white">Axiom Labs Ltd</p></div>
                     <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Sort Code</p>
-                            <p class="font-medium text-lg tracking-widest text-white">04-00-04</p>
-                        </div>
-                        <div>
-                            <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Account Number</p>
-                            <p class="font-medium text-lg tracking-widest text-white">12345678</p>
-                        </div>
+                        <div><p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Sort Code</p><p class="font-medium text-lg tracking-widest text-white">04-00-04</p></div>
+                        <div><p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Account Number</p><p class="font-medium text-lg tracking-widest text-white">12345678</p></div>
                     </div>
                     <div class="pt-4 border-t border-[#1e2936]">
-                        <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Amount to pay</p>
-                        <p id="bankTotal" class="font-bold text-xl accent-blue mb-3">£0.00</p>
-
-                        <p class="text-[0.65rem] text-[#ff6b6b] font-bold tracking-wider uppercase">Payment Reference</p>
-                        <p id="displayOrderRef" class="font-oswald tracking-wide text-2xl text-white">AX-9824</p>
-                        <p class="text-[0.65rem] text-gray-500 mt-1">You MUST include this exact reference so we can match your payment.</p>
+                        <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Amount to pay</p><p id="bankTotal" class="font-bold text-xl accent-blue mb-3">£0.00</p>
+                        <p class="text-[0.65rem] text-[#ff6b6b] font-bold tracking-wider uppercase">Payment Reference</p><p id="displayOrderRef" class="font-oswald tracking-wide text-2xl text-white">AX-9824</p>
                     </div>
                 </div>
-
-                <button onclick="showSuccessScreen()" class="w-full border border-[#1e2936] text-gray-300 py-3 rounded font-oswald tracking-widest hover:bg-[#1a1c20] hover:text-white transition uppercase">
-                    I Have Sent The Payment
-                </button>
+                <button onclick="showSuccessScreen()" class="w-full border border-[#1e2936] text-gray-300 py-3 rounded font-oswald tracking-widest hover:bg-[#1a1c20] hover:text-white transition uppercase">I Have Sent The Payment</button>
             </div>
-
             <div id="successStep" class="hidden p-6 md:p-8 text-center">
-                <div class="w-20 h-20 bg-[#00b67a]/10 border border-[#00b67a]/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-10 h-10 text-[#00b67a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </div>
                 <h3 class="text-3xl font-oswald uppercase tracking-wide mb-4 text-white">Payment Confirmed</h3>
-                <p class="text-sm text-gray-400 mb-8 leading-relaxed">
-                    Thank you for your order! We will verify your transfer against the reference <strong id="successOrderRef" class="text-white">AX-XXXX</strong>. <br><br> Once matched, your order will be dispatched immediately.
-                </p>
-                <button onclick="closeCheckoutAndReset()" class="w-full bg-accent-blue text-black py-4 rounded font-oswald text-lg tracking-widest hover:bg-[#7ac7f0] transition uppercase">
-                    Return to Store
-                </button>
+                <p class="text-sm text-gray-400 mb-8">Thank you! We will verify against reference <strong id="successOrderRef" class="text-white">AX-XXXX</strong>.</p>
+                <button onclick="closeCheckoutAndReset()" class="w-full bg-accent-blue text-black py-4 rounded font-oswald text-lg tracking-widest hover:bg-[#7ac7f0] transition uppercase">Return to Store</button>
             </div>
-
         </div>
     </div>
 
     <script>
-    // --- Cart & Logic Variables ---
+    // --- Category Filtering Logic ---
+    function filterProducts(category, btnElement) {
+        // 1. Update button styles
+        const allBtns = document.querySelectorAll('.filter-btn');
+        allBtns.forEach(btn => {
+            btn.classList.remove('filter-active', 'border-[#61bced]', 'text-black', 'bg-[#61bced]');
+            btn.classList.add('text-gray-400', 'border-[#1e2936]', 'bg-[#111418]');
+        });
+        
+        btnElement.classList.add('filter-active', 'border-[#61bced]', 'text-black', 'bg-[#61bced]');
+        btnElement.classList.remove('text-gray-400', 'border-[#1e2936]', 'bg-[#111418]');
+
+        // 2. Filter products
+        const products = document.querySelectorAll('.product-card');
+        products.forEach(product => {
+            if (category === 'all' || product.dataset.category === category) {
+                product.style.display = 'flex';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+
+    // --- Cart & Checkout Logic (Same as before) ---
     let cart = [];
     let currentOrderTotal = '£0.00';
-
-    // --- DOM Elements ---
     const cartModal = document.getElementById('cartModal');
     const checkoutModal = document.getElementById('checkoutModal');
     const formStep = document.getElementById('checkoutFormStep');
@@ -295,7 +351,6 @@
     const displayOrderRef = document.getElementById('displayOrderRef');
     const successOrderRef = document.getElementById('successOrderRef');
 
-    // --- UI Interactions ---
     function updateQty(btn, change) {
         const qtySpan = btn.parentElement.querySelector('.qty-value');
         let currentQty = parseInt(qtySpan.innerText);
@@ -304,92 +359,51 @@
         qtySpan.innerText = newQty;
     }
 
-    // --- Cart Functions ---
     function addToBasket(productName, price, btn) {
         const qtySpan = btn.parentElement.querySelector('.qty-value');
         const qty = parseInt(qtySpan.innerText);
-        
         const existingItem = cart.find(item => item.name === productName);
-        if (existingItem) {
-            existingItem.qty += qty;
-        } else {
-            cart.push({ name: productName, price: price, qty: qty });
-        }
-        
+        if (existingItem) { existingItem.qty += qty; } else { cart.push({ name: productName, price: price, qty: qty }); }
         qtySpan.innerText = '1';
         updateCartUI();
         openCartModal();
     }
 
-    function removeFromCart(index) {
-        cart.splice(index, 1);
-        updateCartUI();
-    }
+    function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
 
     function updateCartUI() {
         const cartContainer = document.getElementById('cartItemsContainer');
         const cartBadge = document.getElementById('cartBadge');
         const checkoutBtn = document.getElementById('btnProceedCheckout');
-        
         const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
         cartBadge.innerText = totalItems;
-        
         cartContainer.innerHTML = '';
         let subtotal = 0;
 
         if (cart.length === 0) {
             cartContainer.innerHTML = '<p class="text-gray-500 text-sm italic py-4">Your basket is currently empty.</p>';
             document.getElementById('cartTotalUI').innerText = '£0.00';
-            checkoutBtn.disabled = true;
-            checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            checkoutBtn.disabled = true; checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
             return;
         }
 
-        checkoutBtn.disabled = false;
-        checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-
+        checkoutBtn.disabled = false; checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         cart.forEach((item, index) => {
             const itemTotal = item.price * item.qty;
             subtotal += itemTotal;
-
-            cartContainer.innerHTML += `
-                <div class="flex justify-between items-center border-b border-[#1a1c20] py-4">
-                    <div>
-                        <p class="text-white text-lg font-light">${item.name}</p>
-                        <p class="text-xs text-gray-500 mt-1">£${item.price.toFixed(2)} × ${item.qty}</p>
-                    </div>
-                    <div class="flex items-center gap-6">
-                        <span class="font-semibold text-white">£${itemTotal.toFixed(2)}</span>
-                        <button onclick="removeFromCart(${index})" class="text-gray-600 hover:text-red-500 transition">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                        </button>
-                    </div>
-                </div>
-            `;
+            cartContainer.innerHTML += `<div class="flex justify-between items-center border-b border-[#1a1c20] py-4"><div><p class="text-white text-lg font-light">${item.name}</p><p class="text-xs text-gray-500 mt-1">£${item.price.toFixed(2)} × ${item.qty}</p></div><div class="flex items-center gap-6"><span class="font-semibold text-white">£${itemTotal.toFixed(2)}</span><button onclick="removeFromCart(${index})" class="text-gray-600 hover:text-red-500 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div></div>`;
         });
-
         document.getElementById('cartTotalUI').innerText = `£${subtotal.toFixed(2)}`;
     }
 
-    // --- Modal Functions ---
-    function openCartModal() {
-        cartModal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; 
-    }
-
-    function closeCartModal() {
-        cartModal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
+    function openCartModal() { cartModal.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+    function closeCartModal() { cartModal.classList.add('hidden'); document.body.style.overflow = 'auto'; }
 
     function proceedToCheckout() {
         if (cart.length === 0) return;
-        
         closeCartModal();
-        
         let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
         const finalTotal = subtotal + 3.50; 
-        
         let summaryText = cart.map(item => `${item.qty}x ${item.name}`).join(', ');
         if (summaryText.length > 30) summaryText = summaryText.substring(0, 27) + '...';
         
@@ -397,101 +411,42 @@
         document.getElementById('checkoutItemPrice').innerText = `£${subtotal.toFixed(2)}`;
         document.getElementById('checkoutTotal').innerText = `£${finalTotal.toFixed(2)}`;
         document.getElementById('bankTotal').innerText = `£${finalTotal.toFixed(2)}`;
-        
         currentOrderTotal = `£${finalTotal.toFixed(2)}`;
-
         openCheckout();
     }
 
-    function openCheckout() {
-        checkoutModal.classList.remove('hidden');
-        formStep.classList.remove('hidden');
-        bankStep.classList.add('hidden');
-        successStep.classList.add('hidden');
-        document.body.style.overflow = 'hidden'; 
-    }
-
-    function closeCheckout() {
-        checkoutModal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-
-    function showSuccessScreen() {
-        bankStep.classList.add('hidden');
-        successStep.classList.remove('hidden');
-        successOrderRef.innerText = displayOrderRef.innerText;
-    }
-
-    function closeCheckoutAndReset() {
-        closeCheckout();
-        setTimeout(() => {
-            successStep.classList.add('hidden');
-            formStep.classList.remove('hidden');
-        }, 500); 
-    }
-
-    // --- Checkout Processing (Web3Forms) ---
-    function generateOrderRef() {
-        const randomNum = Math.floor(1000 + Math.random() * 9000);
-        return `AX-${randomNum}`;
-    }
+    function openCheckout() { checkoutModal.classList.remove('hidden'); formStep.classList.remove('hidden'); bankStep.classList.add('hidden'); successStep.classList.add('hidden'); document.body.style.overflow = 'hidden'; }
+    function closeCheckout() { checkoutModal.classList.add('hidden'); document.body.style.overflow = 'auto'; }
+    function showSuccessScreen() { bankStep.classList.add('hidden'); successStep.classList.remove('hidden'); successOrderRef.innerText = displayOrderRef.innerText; }
+    function closeCheckoutAndReset() { closeCheckout(); setTimeout(() => { successStep.classList.add('hidden'); formStep.classList.remove('hidden'); }, 500); }
+    function generateOrderRef() { return `AX-${Math.floor(1000 + Math.random() * 9000)}`; }
 
     async function handleOrderSubmission(e) {
         e.preventDefault(); 
-        
         const uniqueRef = generateOrderRef();
         const inputs = e.target.querySelectorAll('input');
         const cartSummaryString = cart.map(item => `${item.qty}x ${item.name}`).join(' | ');
-
         const submitBtn = e.target.querySelector('button[type="submit"]');
         const originalBtnText = submitBtn.innerHTML;
-        submitBtn.innerHTML = 'PROCESSING...';
-        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'PROCESSING...'; submitBtn.disabled = true;
 
         try {
-            // Using Web3Forms to bypass Google blocks
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify({
-                    access_key: "YOUR_ACCESS_KEY_HERE", // MAKE SURE TO KEEP YOUR KEY HERE!
+                    access_key: "YOUR_ACCESS_KEY_HERE", // PASTE YOUR WEB3FORMS KEY HERE
                     subject: `🚨 New Axiom Labs Order: ${uniqueRef}`,
-                    Order_Reference: uniqueRef,
-                    Total_Amount: currentOrderTotal,
-                    Items: cartSummaryString,
-                    Customer_Name: inputs[0].value,
-                    Address: inputs[1].value,
-                    City: inputs[2].value,
-                    Postcode: inputs[3].value,
-                    Phone: inputs[4].value
+                    Order_Reference: uniqueRef, Total_Amount: currentOrderTotal, Items: cartSummaryString,
+                    Customer_Name: inputs[0].value, Address: inputs[1].value, City: inputs[2].value, Postcode: inputs[3].value, Phone: inputs[4].value
                 })
             });
-
             const result = await response.json();
-
-            if (result.success) {
-                cart = [];
-                updateCartUI();
-                displayOrderRef.innerText = uniqueRef;
-                formStep.classList.add('hidden');
-                bankStep.classList.remove('hidden');
-            } else {
-                alert('There was an issue processing your order. Please try again.');
-            }
-
-        } catch (error) {
-            console.error('Checkout error:', error);
-            alert('Could not connect to the server. Check your internet connection.');
-        } finally {
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.disabled = false;
-        }
+            if (result.success) { cart = []; updateCartUI(); displayOrderRef.innerText = uniqueRef; formStep.classList.add('hidden'); bankStep.classList.remove('hidden'); } 
+            else { alert('There was an issue processing your order. Please try again.'); }
+        } catch (error) { console.error('Checkout error:', error); alert('Could not connect to the server.'); } 
+        finally { submitBtn.innerHTML = originalBtnText; submitBtn.disabled = false; }
     }
-
-    // Initialize UI on load
     updateCartUI();
     </script>
 </body>
