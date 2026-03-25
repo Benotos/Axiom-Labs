@@ -26,6 +26,20 @@
             -webkit-text-fill-color: white !important;
             transition: background-color 5000s ease-in-out 0s;
         }
+
+        /* Marquee Animation Classes */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 15s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body class="text-white min-h-screen relative">
@@ -50,11 +64,18 @@
         </div>
     </header>
 
-    <div class="bg-[#151c24] border-b border-[#1e2936] text-gray-300 py-3 overflow-x-auto whitespace-nowrap no-scrollbar">
-        <div class="flex space-x-12 px-6 text-xs font-bold tracking-[0.2em] max-w-5xl mx-auto">
-            <span><span class="accent-blue">★</span> DISCOUNT ON 3 × GHK-CU NOW LIVE</span>
-            <span><span class="accent-blue">★</span> FAST UK DISPATCH</span>
-            <span><span class="accent-blue">★</span> ALL BATCHES LAB TESTED</span>
+    <div class="bg-[#151c24] border-b border-[#1e2936] text-gray-300 py-3 overflow-hidden whitespace-nowrap relative">
+        <div class="animate-marquee">
+            <div class="flex space-x-12 px-6 text-xs font-bold tracking-[0.2em] items-center">
+                <span><span class="accent-blue">★</span> DISCOUNT ON 3 × GHK-CU NOW LIVE</span>
+                <span><span class="accent-blue">★</span> FAST UK DISPATCH</span>
+                <span><span class="accent-blue">★</span> ALL BATCHES LAB TESTED</span>
+            </div>
+            <div class="flex space-x-12 px-6 text-xs font-bold tracking-[0.2em] items-center" aria-hidden="true">
+                <span><span class="accent-blue">★</span> DISCOUNT ON 3 × GHK-CU NOW LIVE</span>
+                <span><span class="accent-blue">★</span> FAST UK DISPATCH</span>
+                <span><span class="accent-blue">★</span> ALL BATCHES LAB TESTED</span>
+            </div>
         </div>
     </div>
 
@@ -274,11 +295,11 @@
 
         try {
             // Send data to your Vercel Serverless Function
-const response = await fetch('/api/checkout', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(orderData)
-});
+            const response = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData)
+            });
 
             const result = await response.json();
 
@@ -302,6 +323,6 @@ const response = await fetch('/api/checkout', {
             submitBtn.disabled = false;
         }
     }
-</script>
+    </script>
 </body>
 </html>
