@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store - Axiom Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0c0e;
+        }
+        .font-oswald { font-family: 'Oswald', sans-serif; }
+        .accent-blue { color: #61bced; }
+        .bg-accent-blue { background-color: #61bced; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom Input Autofill styling for dark mode */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px #0b0c0e inset !important;
+            -webkit-text-fill-color: white !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen relative">
+
+    <div class="h-1.5 w-full bg-accent-blue absolute top-0 left-0"></div>
+
+    <header class="flex flex-col md:flex-row justify-between items-center p-6 pt-10 max-w-5xl mx-auto border-b border-[#1a1c20]">
+        <a href="index.html" class="mb-4 md:mb-0 block text-center md:text-left hover:opacity-80 transition">
+            <h1 class="text-3xl font-bold tracking-widest uppercase font-oswald leading-none">AXIOM</h1>
+            <div class="flex items-center justify-center md:justify-start gap-2 mt-1">
+                <div class="h-[1px] bg-gray-600 w-8"></div>
+                <span class="text-gray-300 text-[0.55rem] tracking-[0.25em] uppercase font-medium">LABS</span>
+                <div class="h-[1px] bg-gray-600 w-8"></div>
+            </div>
+        </a>
+
+        <div class="flex items-center space-x-4">
+            <div class="bg-[#151c24] border border-[#1e2936] rounded-md px-3 py-1 flex items-center gap-2 hidden sm:flex">
+                <div class="w-1.5 h-1.5 rounded-full bg-accent-blue opacity-80"></div>
+                <span class="text-[#61bced] text-[0.6rem] font-bold tracking-widest uppercase">UK TRUSTED SOURCE</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-[#151c24] border-b border-[#1e2936] text-gray-300 py-3 overflow-x-auto whitespace-nowrap no-scrollbar">
+        <div class="flex space-x-12 px-6 text-xs font-bold tracking-[0.2em] max-w-5xl mx-auto">
+            <span><span class="accent-blue">★</span> DISCOUNT ON 3 × GHK-CU NOW LIVE</span>
+            <span><span class="accent-blue">★</span> FAST UK DISPATCH</span>
+            <span><span class="accent-blue">★</span> ALL BATCHES LAB TESTED</span>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto p-6 mt-6">
+        <h2 class="text-sm tracking-[0.2em] mb-8 text-gray-500 font-oswald uppercase">RESEARCH PRODUCTS</h2>
+
+        <div class="flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8">
+            <div class="flex items-center space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs">IMG</div>
+                <div>
+                    <h3 class="text-xl font-oswald tracking-wide">GHK-Cu Pen 50mg</h3>
+                    <p class="font-bold text-lg mt-1 accent-blue">£40</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 w-full md:w-auto justify-end">
+                <div class="flex items-center border border-[#1e2936] bg-[#151c24] rounded">
+                    <button class="px-3 py-2 hover:text-white text-gray-400 transition">−</button>
+                    <span class="px-4 text-sm font-bold">1</span>
+                    <button class="px-3 py-2 hover:text-white text-gray-400 transition">+</button>
+                </div>
+                <button onclick="openCheckout()" class="bg-accent-blue text-black font-oswald px-6 py-2.5 text-sm tracking-widest rounded hover:bg-[#7ac7f0] transition w-full md:w-auto">ADD TO BASKET</button>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8">
+            <div class="flex items-center space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                <div class="w-24 h-24 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs">IMG</div>
+                <div>
+                    <h3 class="text-xl font-oswald tracking-wide">Retatrutide Pen 20mg</h3>
+                    <div class="flex items-center space-x-3 mt-1">
+                        <p class="font-bold text-lg accent-blue">£150</p>
+                        <p class="bg-[#1e2936] text-gray-300 px-2 py-0.5 rounded text-xs font-medium border border-[#2a3746]">Buy 2, save £20</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 w-full md:w-auto justify-end">
+                <div class="flex items-center border border-[#1e2936] bg-[#151c24] rounded">
+                    <button class="px-3 py-2 hover:text-white text-gray-400 transition">−</button>
+                    <span class="px-4 text-sm font-bold">1</span>
+                    <button class="px-3 py-2 hover:text-white text-gray-400 transition">+</button>
+                </div>
+                <button onclick="openCheckout()" class="bg-accent-blue text-black font-oswald px-6 py-2.5 text-sm tracking-widest rounded hover:bg-[#7ac7f0] transition w-full md:w-auto">ADD TO BASKET</button>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center justify-between border-b border-[#1a1c20] pb-8 mb-8">
+            <div class="flex items-center space-x-6 w-full md:w-auto mb-6 md:mb-0">
+                <div class="w-24 h-16 bg-[#151c24] border border-[#1e2936] rounded flex items-center justify-center text-gray-600 text-xs">IMG</div>
+                <div>
+                    <h3 class="text-xl font-oswald tracking-wide">MT-2</h3>
+                    <p class="font-bold text-lg mt-1 accent-blue">£40</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 w-full md:w-auto justify-end">
+                <div class="flex items-center border border-[#1e2936] bg-[#151c24] rounded">
+                    <button class="px-3 py-2 hover:text-white text-gray-400 transition">−</button>
+                    <span class="px-4 text-sm font-bold">1</span>
+                    <button class="px-3 py-2 hover:text-white text-gray-400 transition">+</button>
+                </div>
+                <button onclick="openCheckout()" class="bg-accent-blue text-black font-oswald px-6 py-2.5 text-sm tracking-widest rounded hover:bg-[#7ac7f0] transition w-full md:w-auto">ADD TO BASKET</button>
+            </div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center mt-12 mb-20 space-y-4">
+            <p class="text-[#4a4d54] text-xs text-center">
+                © 2026 Axiom Labs. All rights reserved. <br>Products for research purposes only.
+            </p>
+        </div>
+    </main>
+
+    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm hidden z-50 flex justify-center items-start pt-10 md:pt-16 px-4 overflow-y-auto">
+        
+        <div class="bg-[#111418] border border-[#1e2936] w-full max-w-md rounded-lg shadow-2xl mb-10 overflow-hidden relative">
+            <button onclick="closeCheckout()" class="absolute top-4 right-4 text-gray-500 hover:text-white font-bold text-xl transition">&times;</button>
+            
+            <div id="checkoutFormStep" class="p-6 md:p-8">
+                <h2 class="font-oswald text-2xl tracking-wide mb-2 uppercase">Secure Checkout</h2>
+                <p class="text-sm text-gray-400 mb-6">Fill in your details to place the order.</p>
+                
+                <div class="space-y-3 border-b border-[#1e2936] pb-4 mb-6 bg-[#0b0c0e] p-4 rounded-md">
+                    <div class="flex justify-between text-gray-300 text-sm">
+                        <span>MT-2 × 1</span>
+                        <span class="font-semibold text-white">£40.00</span>
+                    </div>
+                    <div class="flex justify-between text-gray-500 text-sm">
+                        <span>Shipping</span>
+                        <span>£3.50</span>
+                    </div>
+                    <div class="flex justify-between text-white text-lg pt-2 border-t border-[#1e2936] mt-2">
+                        <span class="font-oswald tracking-wide">TOTAL</span>
+                        <span class="font-bold accent-blue">£43.50</span>
+                    </div>
+                </div>
+
+                <form onsubmit="handleOrderSubmission(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-[0.65rem] font-bold tracking-widest text-gray-500 mb-1.5 uppercase">Full Name</label>
+                        <input type="text" required class="w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced] transition">
+                    </div>
+                    <div>
+                        <label class="block text-[0.65rem] font-bold tracking-widest text-gray-500 mb-1.5 uppercase">First Line of Address</label>
+                        <input type="text" required class="w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced] transition">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[0.65rem] font-bold tracking-widest text-gray-500 mb-1.5 uppercase">City</label>
+                            <input type="text" required class="w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced] transition">
+                        </div>
+                        <div>
+                            <label class="block text-[0.65rem] font-bold tracking-widest text-gray-500 mb-1.5 uppercase">Postcode</label>
+                            <input type="text" required class="w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced] transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[0.65rem] font-bold tracking-widest text-gray-500 mb-1.5 uppercase">Phone Number</label>
+                        <input type="tel" required class="w-full bg-[#0b0c0e] border border-[#1e2936] text-white rounded px-4 py-3 focus:outline-none focus:border-[#61bced] transition">
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-accent-blue text-black py-4 rounded font-oswald text-lg tracking-widest hover:bg-[#7ac7f0] mt-6 transition flex justify-center items-center gap-2">
+                        PLACE ORDER
+                        <svg class="w-4 h-4 stroke-[2.5px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </form>
+            </div>
+
+            <div id="bankDetailsStep" class="hidden p-6 md:p-8 text-center">
+                <div class="w-16 h-16 bg-[#151c24] border border-[#1e2936] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-[#61bced]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h3 class="text-3xl font-oswald uppercase tracking-wide mb-2">Order Received</h3>
+                <p class="text-sm text-gray-400 mb-8">Please complete your payment via bank transfer to process your order.</p>
+                
+                <div class="bg-[#0b0c0e] border border-[#1e2936] p-6 rounded text-left space-y-4 mb-8">
+                    <div>
+                        <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Bank Name</p>
+                        <p class="font-medium text-lg text-white">Monzo Bank</p>
+                    </div>
+                    <div>
+                        <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Account Name</p>
+                        <p class="font-medium text-lg text-white">Axiom Labs Ltd</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Sort Code</p>
+                            <p class="font-medium text-lg tracking-widest text-white">04-00-04</p>
+                        </div>
+                        <div>
+                            <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Account Number</p>
+                            <p class="font-medium text-lg tracking-widest text-white">12345678</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-[#1e2936]">
+                        <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Amount to pay</p>
+                        <p class="font-bold text-xl accent-blue mb-3">£43.50</p>
+
+                        <p class="text-[0.65rem] text-[#ff6b6b] font-bold tracking-wider uppercase">Payment Reference</p>
+                        <p id="displayOrderRef" class="font-oswald tracking-wide text-2xl text-white">AX-9824</p>
+                        <p class="text-[0.65rem] text-gray-500 mt-1">You MUST include this exact reference so we can match your payment.</p>
+                    </div>
+                </div>
+
+                <button onclick="closeCheckout()" class="w-full border border-[#1e2936] text-gray-300 py-3 rounded font-oswald tracking-widest hover:bg-[#1a1c20] hover:text-white transition uppercase">
+                    I Have Sent The Payment
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    const modal = document.getElementById('checkoutModal');
+    const formStep = document.getElementById('checkoutFormStep');
+    const bankStep = document.getElementById('bankDetailsStep');
+    const displayOrderRef = document.getElementById('displayOrderRef');
+
+    // Generates a random reference like "AX-4928"
+    function generateOrderRef() {
+        const randomNum = Math.floor(1000 + Math.random() * 9000);
+        return `AX-${randomNum}`;
+    }
+
+    function openCheckout() {
+        modal.classList.remove('hidden');
+        formStep.classList.remove('hidden');
+        bankStep.classList.add('hidden');
+        document.body.style.overflow = 'hidden'; 
+    }
+
+    function closeCheckout() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    async function handleOrderSubmission(e) {
+        e.preventDefault(); 
+        
+        // 1. Generate the unique reference for this specific order
+        const uniqueRef = generateOrderRef();
+
+        // 2. Grab the form inputs
+        const inputs = e.target.querySelectorAll('input');
+        const orderData = {
+            fullName: inputs[0].value,
+            address: inputs[1].value,
+            city: inputs[2].value,
+            postcode: inputs[3].value,
+            phone: inputs[4].value,
+            totalAmount: '£43.50', // You can hook this up to a real cart total later
+            orderRef: uniqueRef    // Passing the generated reference to the backend
+        };
+
+        // Change button text to show it's working
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.innerHTML = 'PROCESSING...';
+        submitBtn.disabled = true;
+
+        try {
+            // Send data to your Vercel Serverless Function
+const response = await fetch('/api/checkout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(orderData)
+});
+
+            const result = await response.json();
+
+            if (result.success) {
+                // 4. Update the UI with the unique reference
+                displayOrderRef.innerText = uniqueRef;
+                
+                // 5. Show the bank details screen
+                formStep.classList.add('hidden');
+                bankStep.classList.remove('hidden');
+            } else {
+                alert('There was an issue processing your order. Please try again.');
+            }
+
+        } catch (error) {
+            console.error('Checkout error:', error);
+            alert('Could not connect to the server. Make sure your backend is running.');
+        } finally {
+            // Reset button just in case
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    }
+</script>
+</body>
+</html>
