@@ -1,92 +1,417 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Axiom Labs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Axiom Labs | UK Trusted Research Compounds</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0b0c0e',
+                        surface: '#151c24',
+                        borderline: '#1e2936',
+                        accent: '#61bced',
+                        accentHover: '#7ac7f0'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0b0c0e; /* Deep dark background */
+        /* Aggressively locking the x-axis to prevent mobile squeeze */
+        html, body {
+            background-color: #0b0c0e;
+            color: #ffffff;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
-        .font-oswald {
-            font-family: 'Oswald', sans-serif;
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0b0c0e; }
+        ::-webkit-scrollbar-thumb { background: #1e2936; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #61bced; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
         }
-        .accent-blue {
-            color: #61bced;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .bg-accent-blue {
-            background-color: #61bced;
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(97, 188, 237, 0.4);
         }
     </style>
 </head>
-<body class="text-white min-h-screen flex flex-col relative">
+<body class="antialiased">
 
-    <div class="h-1.5 w-full bg-accent-blue absolute top-0 left-0"></div>
+    <div class="h-1.5 w-full bg-accent fixed top-0 left-0 z-50"></div>
 
-    <div class="flex-1 flex flex-col items-center px-6 pt-16 pb-8 max-w-md mx-auto w-full">
+    <header id="navbar" class="fixed top-1.5 left-0 w-full z-40 transition-all duration-300 bg-dark/90 backdrop-blur-md border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center w-full">
+            
+            <a href="index.html" class="block hover:opacity-80 transition group">
+                <h1 class="text-3xl font-bold tracking-widest uppercase font-heading leading-none group-hover:text-accent transition duration-300">AXIOM</h1>
+                <div class="flex items-center justify-start gap-2 mt-1">
+                    <div class="h-[1px] bg-gray-600 w-6 group-hover:bg-accent transition duration-300"></div>
+                    <span class="text-gray-400 text-[0.55rem] tracking-[0.25em] uppercase font-medium">LABS</span>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#featured" class="text-xs font-bold tracking-widest uppercase text-gray-300 hover:text-accent transition">Products</a>
+                <a href="#about" class="text-xs font-bold tracking-widest uppercase text-gray-300 hover:text-accent transition">Why Us</a>
+                <a href="#faq" class="text-xs font-bold tracking-widest uppercase text-gray-300 hover:text-accent transition">FAQ</a>
+                
+                <div class="h-4 w-[1px] bg-borderline"></div>
+                
+                <div class="bg-surface border border-borderline rounded-md px-3 py-1 flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-slow"></div>
+                    <span class="text-accent text-[0.6rem] font-bold tracking-widest uppercase">UK Trusted</span>
+                </div>
+                
+                <a href="store.html" class="border border-borderline hover:border-accent text-white px-6 py-2 rounded text-xs font-bold tracking-widest uppercase transition duration-300">
+                    Enter Store
+                </a>
+            </nav>
+
+            <button id="mobileMenuBtn" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+
+        <div id="mobileMenu" class="md:hidden hidden bg-surface border-t border-borderline absolute w-full left-0">
+            <div class="px-6 py-4 flex flex-col gap-4">
+                <a href="#featured" class="text-sm font-bold tracking-widest uppercase text-gray-300 hover:text-accent">Products</a>
+                <a href="#about" class="text-sm font-bold tracking-widest uppercase text-gray-300 hover:text-accent">Why Us</a>
+                <a href="#faq" class="text-sm font-bold tracking-widest uppercase text-gray-300 hover:text-accent">FAQ</a>
+                <a href="store.html" class="text-sm font-bold tracking-widest uppercase text-accent mt-2">Enter Store &rarr;</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative pt-40 pb-20 md:pt-52 md:pb-32 px-6 flex flex-col items-center justify-center min-h-[90vh] overflow-hidden w-full">
         
-        <div class="text-center mb-12 w-full">
-            <h1 class="text-[3.5rem] font-bold tracking-widest uppercase font-oswald leading-none">AXIOM</h1>
-            <div class="flex items-center justify-center gap-3 mt-2">
-                <div class="h-[1px] bg-gray-600 w-12"></div>
-                <span class="text-gray-300 text-[0.65rem] tracking-[0.25em] uppercase font-medium">LABS</span>
-                <div class="h-[1px] bg-gray-600 w-12"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[150vw] md:w-[800px] md:h-[400px] bg-accent opacity-[0.03] blur-[80px] md:blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto w-full text-center relative z-10 reveal">
+            <div class="inline-flex bg-surface border border-borderline rounded-full px-5 py-2 items-center gap-2 mb-8 shadow-lg">
+                <div class="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+                <span class="text-accent text-[0.65rem] md:text-xs font-bold tracking-widest uppercase">UK's Premier Source</span>
+            </div>
+
+            <h2 class="text-[3rem] sm:text-6xl md:text-7xl lg:text-[7.5rem] leading-[1.05] font-bold uppercase font-heading mb-8 tracking-wide">
+                UNLOCK YOUR <br>
+                <span class="text-accent">TRUE</span> POTENTIAL
+            </h2>
+
+            <p class="text-gray-400 text-sm md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto font-light">
+                The UK's most trusted performance and research compound retailer. <br class="hidden md:block"> 
+                Lab tested batches. Fast 24-hour dispatch. Thousands verified.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 md:px-0">
+                <a href="store.html" class="w-full sm:w-auto bg-accent text-black font-bold text-sm md:text-base tracking-widest px-12 py-4 md:py-5 rounded-md flex items-center justify-center gap-3 glow-hover transition duration-300 uppercase">
+                    Visit Store
+                    <svg class="w-5 h-5 stroke-[2.5px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+                <a href="#featured" class="w-full sm:w-auto border border-borderline text-white font-bold text-sm md:text-base tracking-widest px-12 py-4 md:py-5 rounded-md hover:bg-surface hover:border-accent transition duration-300 uppercase flex justify-center">
+                    Explore Range
+                </a>
             </div>
         </div>
+    </main>
 
-        <div class="bg-[#151c24] border border-[#1e2936] rounded-md px-4 py-1.5 flex items-center gap-2 mb-8">
-            <div class="w-1.5 h-1.5 rounded-full bg-accent-blue opacity-80"></div>
-            <span class="text-[#61bced] text-[0.65rem] font-bold tracking-widest uppercase">UK TRUSTED SOURCE</span>
-        </div>
+    <section class="border-y border-borderline bg-surface/30 w-full">
+        <div class="max-w-7xl mx-auto px-6 py-12 md:py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-borderline text-center reveal">
+                
+                <div class="px-6 py-4 md:py-0 flex flex-col items-center justify-center">
+                    <p class="text-accent font-bold text-4xl font-heading tracking-wide mb-2">24HR</p>
+                    <p class="text-gray-500 text-xs tracking-[0.2em] uppercase font-semibold">UK Dispatch</p>
+                </div>
+                
+                <div class="px-6 py-4 md:py-0 flex flex-col items-center justify-center">
+                    <p class="text-accent font-bold text-4xl font-heading tracking-wide mb-2">100%</p>
+                    <p class="text-gray-500 text-xs tracking-[0.2em] uppercase font-semibold">Lab Tested</p>
+                </div>
+                
+                <div class="px-6 py-4 md:py-0 flex flex-col items-center justify-center">
+                    <p class="text-accent font-bold text-4xl font-heading tracking-wide mb-2">£40+</p>
+                    <p class="text-gray-500 text-xs tracking-[0.2em] uppercase font-semibold">Free Shipping</p>
+                </div>
 
-        <h2 class="text-[2.8rem] leading-[1.05] font-bold text-center uppercase font-oswald mb-6 tracking-wide">
-            PUSH YOUR <br>
-            <span class="accent-blue">LIMITS</span> FURTHER
-        </h2>
+                <div class="px-6 py-4 md:py-0 flex flex-col items-center justify-center">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-8 h-8 text-[#00b67a]" viewBox="0 0 512 512" fill="currentColor"><path d="M256 38.013l73.176 225.216h236.782l-191.56 139.18 73.185 225.215-191.583-139.191-191.581 139.191 73.185-225.215-191.56-139.18h236.782z"/></svg>
+                        <span class="text-white text-2xl font-bold tracking-tight">Trustpilot</span>
+                    </div>
+                    <p class="text-gray-500 text-xs tracking-[0.2em] uppercase font-semibold">5 Star Rated</p>
+                </div>
 
-        <p class="text-gray-400 text-center text-sm leading-relaxed mb-10 max-w-[320px]">
-            The UK's most trusted performance and research compound retailer. Lab tested. Fast dispatch. Thousands verified.
-        </p>
-
-        <a href="store.html" class="w-full bg-accent-blue text-black font-bold text-sm tracking-widest py-4 rounded-md flex items-center justify-center gap-2 mb-12 hover:bg-[#7ac7f0] transition duration-200">
-    VISIT STORE
-    <svg class="w-4 h-4 stroke-[2.5px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-</a>
-
-        <div class="w-full h-[1px] bg-[#1a1c20] mb-8"></div>
-
-        <div class="grid grid-cols-3 gap-0 w-full text-center divide-x divide-[#1a1c20] mb-8">
-            <div class="px-1 flex flex-col items-center justify-center">
-                <p class="accent-blue font-bold text-[1.3rem] font-oswald tracking-wide mb-1">24HR</p>
-                <p class="text-gray-500 text-[0.55rem] tracking-[0.15em] uppercase">UK DISPATCH</p>
-            </div>
-            <div class="px-1 flex flex-col items-center justify-center">
-                <p class="accent-blue font-bold text-[1.3rem] font-oswald tracking-wide mb-1">LAB TESTED</p>
-                <p class="text-gray-500 text-[0.55rem] tracking-[0.15em] uppercase">ALL PRODUCTS</p>
-            </div>
-            <div class="px-1 flex flex-col items-center justify-center">
-                <p class="accent-blue font-bold text-[1.3rem] font-oswald tracking-wide mb-1">5 STARS</p>
-                <p class="text-gray-500 text-[0.55rem] tracking-[0.15em] uppercase">CUSTOMER RATING</p>
             </div>
         </div>
+    </section>
 
-        <div class="w-full h-[1px] bg-[#1a1c20] mb-8"></div>
-
-        <div class="flex items-center justify-center gap-2 mb-12">
-            <svg class="w-8 h-8 text-[#00b67a]" viewBox="0 0 512 512" fill="currentColor">
-                <path d="M256 38.013l73.176 225.216h236.782l-191.56 139.18 73.185 225.215-191.583-139.191-191.581 139.191 73.185-225.215-191.56-139.18h236.782z"/>
-            </svg>
-            <span class="text-white text-2xl font-bold tracking-tight" style="font-family: Arial, Helvetica, sans-serif;">Trustpilot</span>
+    <section id="featured" class="py-24 max-w-7xl mx-auto px-6 w-full">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 reveal">
+            <div>
+                <h3 class="text-sm tracking-[0.2em] text-accent font-bold uppercase mb-2">Top Tier</h3>
+                <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase tracking-wide">Featured Compounds</h2>
+            </div>
+            <a href="store.html" class="text-sm font-bold tracking-widest uppercase text-gray-400 hover:text-accent transition mt-6 md:mt-0 flex items-center gap-2">
+                View All <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </a>
         </div>
 
-        <p class="text-[#4a4d54] text-[0.6rem] text-center mt-auto">
-            © 2026 Axiom Labs. All rights reserved. Products for research purposes only.
-        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="bg-surface border border-borderline rounded-lg overflow-hidden group hover:border-accent transition duration-300 reveal delay-100">
+                <div class="h-64 bg-dark flex items-center justify-center p-6 border-b border-borderline relative">
+                    <span class="absolute top-4 left-4 bg-accent text-black text-[0.6rem] font-bold tracking-widest px-2 py-1 rounded uppercase">Best Seller</span>
+                    <div class="w-32 h-32 border-2 border-borderline border-dashed rounded-full flex items-center justify-center text-borderline group-hover:border-accent group-hover:text-accent transition duration-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-2xl font-heading tracking-wide mb-2">GHK-Cu 70mg</h4>
+                    <p class="text-gray-400 text-sm mb-6 h-10">Premium dual-vial presentation (2 x 35mg) for optimal research stability.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-accent">£95</span>
+                        <a href="store.html" class="bg-white text-black hover:bg-accent px-4 py-2 rounded text-xs font-bold tracking-widest uppercase transition">Buy Now</a>
+                    </div>
+                </div>
+            </div>
 
-    </div>
+            <div class="bg-surface border border-borderline rounded-lg overflow-hidden group hover:border-accent transition duration-300 reveal delay-200">
+                <div class="h-64 bg-dark flex items-center justify-center p-6 border-b border-borderline relative">
+                    <div class="w-32 h-32 border-2 border-borderline border-dashed rounded-full flex items-center justify-center text-borderline group-hover:border-accent group-hover:text-accent transition duration-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-2xl font-heading tracking-wide mb-2">Retatrutide</h4>
+                    <p class="text-gray-400 text-sm mb-6 h-10">High-purity triple agonist compound for advanced analytical research.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-accent">£150</span>
+                        <a href="store.html" class="bg-white text-black hover:bg-accent px-4 py-2 rounded text-xs font-bold tracking-widest uppercase transition">Buy Now</a>
+                    </div>
+                </div>
+            </div>
 
+            <div class="bg-surface border border-borderline rounded-lg overflow-hidden group hover:border-accent transition duration-300 reveal delay-300">
+                <div class="h-64 bg-dark flex items-center justify-center p-6 border-b border-borderline relative">
+                    <div class="w-32 h-32 border-2 border-borderline border-dashed rounded-full flex items-center justify-center text-borderline group-hover:border-accent group-hover:text-accent transition duration-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-2xl font-heading tracking-wide mb-2">MT-2</h4>
+                    <p class="text-gray-400 text-sm mb-6 h-10">Synthesized peptide analog verified for molecular integrity.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-accent">£40</span>
+                        <a href="store.html" class="bg-white text-black hover:bg-accent px-4 py-2 rounded text-xs font-bold tracking-widest uppercase transition">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-surface border-y border-borderline relative overflow-hidden w-full">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase tracking-wide mb-4">The Axiom Standard</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">We do not compromise on quality. Every compound is subjected to rigorous third-party analytical testing before it enters our inventory.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center reveal delay-100">
+                    <div class="w-16 h-16 bg-dark border border-borderline rounded-2xl flex items-center justify-center mx-auto mb-6 text-accent">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold uppercase tracking-widest mb-3">Purity Guaranteed</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Independent HPLC and Mass Spectrometry testing confirms >99% purity across our entire catalog.</p>
+                </div>
+                <div class="text-center reveal delay-200">
+                    <div class="w-16 h-16 bg-dark border border-borderline rounded-2xl flex items-center justify-center mx-auto mb-6 text-accent">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold uppercase tracking-widest mb-3">Rapid Dispatch</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">Orders placed before 2PM GMT are dispatched the same day via secure, tracked shipping methods.</p>
+                </div>
+                <div class="text-center reveal delay-300">
+                    <div class="w-16 h-16 bg-dark border border-borderline rounded-2xl flex items-center justify-center mx-auto mb-6 text-accent">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold uppercase tracking-widest mb-3">Discreet Packaging</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">All research materials are shipped in sterile, unmarked packaging to ensure complete privacy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 max-w-4xl mx-auto px-6 reveal w-full">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-heading font-bold uppercase tracking-wide mb-4">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="space-y-4">
+            <div class="border border-borderline rounded-lg bg-surface overflow-hidden">
+                <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+                    <span class="font-bold tracking-wide uppercase text-[0.8rem] md:text-base">Do you ship internationally?</span>
+                    <svg class="w-5 h-5 text-accent transform transition-transform duration-300 shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-borderline pt-4">
+                    Currently, we specialize in rapid domestic dispatch within the United Kingdom. International shipping is evaluated on a case-by-case basis depending on local regulations regarding research compounds.
+                </div>
+            </div>
+
+            <div class="border border-borderline rounded-lg bg-surface overflow-hidden">
+                <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+                    <span class="font-bold tracking-wide uppercase text-[0.8rem] md:text-base">Are your products for human consumption?</span>
+                    <svg class="w-5 h-5 text-accent transform transition-transform duration-300 shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-borderline pt-4">
+                    STRICTLY NO. All products sold by Axiom Labs are strictly for in-vitro laboratory research purposes only. They are not intended for human consumption, diagnostic, or therapeutic use.
+                </div>
+            </div>
+
+            <div class="border border-borderline rounded-lg bg-surface overflow-hidden">
+                <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+                    <span class="font-bold tracking-wide uppercase text-[0.8rem] md:text-base">How long does bank transfer processing take?</span>
+                    <svg class="w-5 h-5 text-accent transform transition-transform duration-300 shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-borderline pt-4">
+                    UK Faster Payments are usually verified within 1-2 hours during business hours. Please ensure you include your exact Order Reference number when making the transfer to prevent delays.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-borderline bg-surface pt-16 pb-8 w-full">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                
+                <div class="col-span-1 md:col-span-2">
+                    <h1 class="text-3xl font-bold tracking-widest uppercase font-heading leading-none mb-4 text-white">AXIOM <span class="text-gray-500 text-sm">LABS</span></h1>
+                    <p class="text-gray-400 text-sm max-w-sm mb-6 leading-relaxed">
+                        Setting the standard for high-purity research compounds. Committed to advancing scientific inquiry through uncompromising quality control.
+                    </p>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full border border-borderline flex items-center justify-center text-gray-400 hover:text-accent hover:border-accent transition cursor-pointer">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </div>
+                        <div class="w-10 h-10 rounded-full border border-borderline flex items-center justify-center text-gray-400 hover:text-accent hover:border-accent transition cursor-pointer">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold tracking-widest uppercase mb-6 text-sm">Navigation</h4>
+                    <ul class="space-y-3">
+                        <li><a href="store.html" class="text-gray-400 hover:text-accent text-sm transition">All Products</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-accent text-sm transition">Quality Control</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-accent text-sm transition">Shipping Info</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent text-sm transition">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold tracking-widest uppercase mb-6 text-sm">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-accent text-sm transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent text-sm transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent text-sm transition">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-borderline pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <p class="text-gray-500 text-xs font-semibold tracking-widest uppercase">
+                    © 2026 Axiom Labs. All rights reserved.
+                </p>
+                <p class="text-red-500/80 text-[0.65rem] font-bold tracking-widest uppercase bg-red-500/10 px-3 py-1 rounded">
+                    Strictly for research purposes only
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Mobile Menu Toggle
+        const btn = document.getElementById('mobileMenuBtn');
+        const menu = document.getElementById('mobileMenu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // 2. Navbar Background on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('border-borderline');
+                navbar.classList.remove('border-transparent');
+            } else {
+                navbar.classList.remove('border-borderline');
+                navbar.classList.add('border-transparent');
+            }
+        });
+
+        // 3. Scroll Reveal Animation Logic
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
+
+        // 4. FAQ Accordion Logic
+        const faqBtns = document.querySelectorAll('.faq-btn');
+        faqBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('svg');
+                
+                // Toggle open/close
+                content.classList.toggle('hidden');
+                
+                // Rotate arrow
+                if(content.classList.contains('hidden')) {
+                    icon.classList.remove('rotate-180');
+                } else {
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
