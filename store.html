@@ -324,8 +324,12 @@
                         <p class="text-[0.65rem] text-gray-500 mt-1">You MUST use this exact reference.</p>
                     </div>
                     <div class="pt-4 border-t border-[#1e2936]">
-                        <p class="text-[0.65rem] text-accent-blue font-bold tracking-wider uppercase mb-1">Send Confirmation Message To:</p>
+                        <p class="text-[0.65rem] text-[#25D366] font-bold tracking-wider uppercase mb-1 flex items-center gap-1.5">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                            WhatsApp Confirmation To:
+                        </p>
                         <p class="font-oswald tracking-wide text-2xl text-white">07495124689</p>
+                        <p class="text-[0.65rem] text-gray-400 mt-1">Message this number on WhatsApp with your payment confirmation to complete your order.</p>
                     </div>
                 </div>
                 <button onclick="showSuccessScreen()" class="w-full border border-[#1e2936] text-gray-300 py-3 rounded font-oswald tracking-widest hover:bg-[#1a1c20] hover:text-white transition uppercase">I Have Sent The Payment</button>
@@ -333,14 +337,22 @@
             
             <div id="successStep" class="hidden p-6 md:p-8 text-center">
                 <h3 class="text-3xl font-oswald uppercase tracking-wide mb-4 text-white">Payment Confirmed</h3>
-                <p class="text-sm text-gray-400 mb-8">Thank you! We will verify against reference <strong class="text-white">skincare</strong>. Please ensure you sent a message to <strong class="text-white">07495124689</strong> to avoid delays.</p>
+                <p class="text-sm text-gray-400 mb-6">Thank you! We will verify against reference <strong class="text-white">skincare</strong>.</p>
+                
+                <div class="bg-[#25D366]/10 border border-[#25D366]/30 rounded-lg p-4 mb-8 text-center">
+                    <p class="text-[#25D366] text-sm font-bold flex items-center justify-center gap-2 mb-1">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                        Send WhatsApp Confirmation
+                    </p>
+                    <p class="text-white text-sm">To complete your order, message <strong>2349152598271</strong></p>
+                </div>
+
                 <button onclick="closeCheckoutAndReset()" class="w-full bg-accent-blue text-black py-4 rounded font-oswald text-lg tracking-widest hover:bg-[#7ac7f0] transition uppercase">Return to Store</button>
             </div>
         </div>
     </div>
 
     <script>
-    // --- Category Filtering Logic ---
     function filterProducts(category, btnElement) {
         const allBtns = document.querySelectorAll('.filter-btn');
         allBtns.forEach(btn => {
@@ -361,8 +373,8 @@
         });
     }
 
-    // --- Cart & Checkout Logic ---
-    let cart = [];
+    // Initialize cart from localStorage so it survives page reloads
+    let cart = JSON.parse(localStorage.getItem('axiomCart')) || [];
     let currentOrderTotal = '£0.00';
     const cartModal = document.getElementById('cartModal');
     const checkoutModal = document.getElementById('checkoutModal');
@@ -391,6 +403,9 @@
     function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
 
     function updateCartUI() {
+        // Save to localStorage every time the cart updates
+        localStorage.setItem('axiomCart', JSON.stringify(cart));
+        
         const cartContainer = document.getElementById('cartItemsContainer');
         const cartBadge = document.getElementById('cartBadge');
         const checkoutBtn = document.getElementById('btnProceedCheckout');
@@ -461,11 +476,18 @@
                 })
             });
             const result = await response.json();
-            if (result.success) { cart = []; updateCartUI(); formStep.classList.add('hidden'); bankStep.classList.remove('hidden'); } 
+            if (result.success) { 
+                cart = []; 
+                updateCartUI(); 
+                formStep.classList.add('hidden'); 
+                bankStep.classList.remove('hidden'); 
+            } 
             else { alert('There was an issue processing your order. Please try again.'); }
         } catch (error) { console.error('Checkout error:', error); alert('Could not connect to the server.'); } 
         finally { submitBtn.innerHTML = originalBtnText; submitBtn.disabled = false; }
     }
+    
+    // Load cart UI on initial page load
     updateCartUI();
     </script>
 </body>
