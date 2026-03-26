@@ -24,7 +24,6 @@
         .animate-marquee { display: flex; width: max-content; animation: marquee 15s linear infinite; }
         .animate-marquee:hover { animation-play-state: paused; }
 
-        /* Filter button active state */
         .filter-active { background-color: #61bced; color: #000; border-color: #61bced; }
     </style>
 </head>
@@ -298,26 +297,43 @@
                     <button type="submit" class="w-full bg-accent-blue text-black py-4 rounded font-oswald text-lg tracking-widest hover:bg-[#7ac7f0] mt-4 transition">PLACE ORDER</button>
                 </form>
             </div>
+            
             <div id="bankDetailsStep" class="hidden p-6 md:p-8 text-center">
                 <h3 class="text-3xl font-oswald uppercase tracking-wide mb-2">Order Received</h3>
                 <p class="text-sm text-gray-400 mb-8">Please complete your payment via bank transfer.</p>
                 <div class="bg-[#0b0c0e] border border-[#1e2936] p-6 rounded text-left space-y-4 mb-8">
-                    <div><p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Bank Name</p><p class="font-medium text-lg text-white">Monzo Bank</p></div>
-                    <div><p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Account Name</p><p class="font-medium text-lg text-white">Axiom Labs Ltd</p></div>
+                    <div>
+                        <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Account Name</p>
+                        <p class="font-medium text-lg text-white">Lucas Hassall</p>
+                    </div>
                     <div class="grid grid-cols-2 gap-4">
-                        <div><p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Sort Code</p><p class="font-medium text-lg tracking-widest text-white">04-00-04</p></div>
-                        <div><p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Account Number</p><p class="font-medium text-lg tracking-widest text-white">12345678</p></div>
+                        <div>
+                            <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Sort Code</p>
+                            <p class="font-medium text-lg tracking-widest text-white">04-00-04</p>
+                        </div>
+                        <div>
+                            <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Account Number</p>
+                            <p class="font-medium text-lg tracking-widest text-white">63534667</p>
+                        </div>
                     </div>
                     <div class="pt-4 border-t border-[#1e2936]">
-                        <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Amount to pay</p><p id="bankTotal" class="font-bold text-xl accent-blue mb-3">£0.00</p>
-                        <p class="text-[0.65rem] text-[#ff6b6b] font-bold tracking-wider uppercase">Payment Reference</p><p id="displayOrderRef" class="font-oswald tracking-wide text-2xl text-white">AX-9824</p>
+                        <p class="text-[0.65rem] text-gray-500 font-bold tracking-wider uppercase">Amount to pay</p>
+                        <p id="bankTotal" class="font-bold text-xl accent-blue mb-3">£0.00</p>
+                        <p class="text-[0.65rem] text-[#ff6b6b] font-bold tracking-wider uppercase">Payment Reference</p>
+                        <p class="font-oswald tracking-wide text-2xl text-white">skincare</p>
+                        <p class="text-[0.65rem] text-gray-500 mt-1">You MUST use this exact reference.</p>
+                    </div>
+                    <div class="pt-4 border-t border-[#1e2936]">
+                        <p class="text-[0.65rem] text-accent-blue font-bold tracking-wider uppercase mb-1">Send Confirmation Message To:</p>
+                        <p class="font-oswald tracking-wide text-2xl text-white">07495124689</p>
                     </div>
                 </div>
                 <button onclick="showSuccessScreen()" class="w-full border border-[#1e2936] text-gray-300 py-3 rounded font-oswald tracking-widest hover:bg-[#1a1c20] hover:text-white transition uppercase">I Have Sent The Payment</button>
             </div>
+            
             <div id="successStep" class="hidden p-6 md:p-8 text-center">
                 <h3 class="text-3xl font-oswald uppercase tracking-wide mb-4 text-white">Payment Confirmed</h3>
-                <p class="text-sm text-gray-400 mb-8">Thank you! We will verify against reference <strong id="successOrderRef" class="text-white">AX-XXXX</strong>.</p>
+                <p class="text-sm text-gray-400 mb-8">Thank you! We will verify against reference <strong class="text-white">skincare</strong>. Please ensure you sent a message to <strong class="text-white">07495124689</strong> to avoid delays.</p>
                 <button onclick="closeCheckoutAndReset()" class="w-full bg-accent-blue text-black py-4 rounded font-oswald text-lg tracking-widest hover:bg-[#7ac7f0] transition uppercase">Return to Store</button>
             </div>
         </div>
@@ -353,8 +369,6 @@
     const formStep = document.getElementById('checkoutFormStep');
     const bankStep = document.getElementById('bankDetailsStep');
     const successStep = document.getElementById('successStep');
-    const displayOrderRef = document.getElementById('displayOrderRef');
-    const successOrderRef = document.getElementById('successOrderRef');
 
     function updateQty(btn, change) {
         const qtySpan = btn.parentElement.querySelector('.qty-value');
@@ -408,7 +422,7 @@
         if (cart.length === 0) return;
         closeCartModal();
         let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-        const finalTotal = subtotal + 5.00; // Updated shipping to £5
+        const finalTotal = subtotal + 5.00; 
         let summaryText = cart.map(item => `${item.qty}x ${item.name}`).join(', ');
         if (summaryText.length > 30) summaryText = summaryText.substring(0, 27) + '...';
         
@@ -422,7 +436,7 @@
 
     function openCheckout() { checkoutModal.classList.remove('hidden'); formStep.classList.remove('hidden'); bankStep.classList.add('hidden'); successStep.classList.add('hidden'); document.body.style.overflow = 'hidden'; }
     function closeCheckout() { checkoutModal.classList.add('hidden'); document.body.style.overflow = 'auto'; }
-    function showSuccessScreen() { bankStep.classList.add('hidden'); successStep.classList.remove('hidden'); successOrderRef.innerText = displayOrderRef.innerText; }
+    function showSuccessScreen() { bankStep.classList.add('hidden'); successStep.classList.remove('hidden'); }
     function closeCheckoutAndReset() { closeCheckout(); setTimeout(() => { successStep.classList.add('hidden'); formStep.classList.remove('hidden'); }, 500); }
     function generateOrderRef() { return `AX-${Math.floor(1000 + Math.random() * 9000)}`; }
 
@@ -447,7 +461,7 @@
                 })
             });
             const result = await response.json();
-            if (result.success) { cart = []; updateCartUI(); displayOrderRef.innerText = uniqueRef; formStep.classList.add('hidden'); bankStep.classList.remove('hidden'); } 
+            if (result.success) { cart = []; updateCartUI(); formStep.classList.add('hidden'); bankStep.classList.remove('hidden'); } 
             else { alert('There was an issue processing your order. Please try again.'); }
         } catch (error) { console.error('Checkout error:', error); alert('Could not connect to the server.'); } 
         finally { submitBtn.innerHTML = originalBtnText; submitBtn.disabled = false; }
